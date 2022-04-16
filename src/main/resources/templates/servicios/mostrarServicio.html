@@ -12,37 +12,43 @@
     <link rel="stylesheet" th:href="@{/css/toast.min.css}" />
     <meta charset="utf-8" />
   </head>
-
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-9" th:each="tmpServicio: ${servicio}">
+        <div class="col-9">
           <div class="card mt-3">
             <div class="card-body">
               <div class="row">
                 <div class="col-8">
-                  <h2 class="mb-3">[[${tmpServicio.nombre}]]</h2>
-
+                  <h2 class="mb-3" th:text="${servicio.nombre}"></h2>
                   <h4>
                     Descripcion:
-                    <small class="text-muted"
-                      >[[${tmpServicio.descripcion}]]</small
-                    >
+                    <small
+                      class="text-muted"
+                      th:text="${servicio.descripcion}"
+                    ></small>
                   </h4>
                   <h4>
                     Precio:
-                    <small class="text-muted">[[${tmpServicio.precio}]]</small>
+                    <small
+                      class="text-muted"
+                      th:text="${'$ ' + servicio.precio}"
+                    ></small>
                   </h4>
 
                   <h4>
                     Documentos:
-                    <small class="text-muted"
-                      >[[${tmpServicio.documento}]]</small
-                    >
+                    <br />
+                    <div th:each=" tmpDocumento : ${servicio.documento}">
+                      <small
+                        class="text-muted"
+                        th:text="${tmpDocumento.nombre}"
+                      ></small>
+                    </div>
                   </h4>
 
                   <a
-                    th:href="@{/servicios/editar/{id} (id=${tmpServicio.idServicio})}"
+                    th:href="@{/servicios/editar/{id} (id=${servicio.idServicio})}"
                     class="btn btn-primary btn-lg btn-block mt-3"
                   >
                     <ion-icon name="create"></ion-icon>&nbsp;Editar

@@ -53,7 +53,6 @@
                   <tr>
                     <th scope="col"></th>
                     <th scope="col">#</th>
-
                     <th scope="col">Servicio</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Precio</th>
@@ -66,11 +65,11 @@
                 <tbody>
                   <tr th:each="tmpServicio: ${listaServicios}">
                     <th scope="row"></th>
-                    <td>[[${tmpServicio.idServicio}]]</td>
-                    <td>[[${tmpServicio.nombre}]]</td>
-                    <td>[[${tmpServicio.descripcion}]]</td>
-                    <td>$ [[${tmpServicio.precio}]]</td>
-                    <td>[[${tmpServicio.documento[0].nombre}]]</td>
+                    <td th:text="${tmpServicio.idServicio}"></td>
+                    <td th:text="${tmpServicio.nombre}"></td>
+                    <td th:text="${tmpServicio.descripcion}"></td>
+                    <td th:text="${tmpServicio.precio}"></td>
+                    <td th:text="${#lists.size(tmpServicio.documento)}"></td>
 
                     <td>
                       <a
