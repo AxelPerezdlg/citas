@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+    <title>Registro de solicitante</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Registrar solicitante</h1>
+      <form th:action="@{/usuarios/guardarSolicitante}" method="post">
+        <div th:object="${solicitante}">
+          <div class="mb-3">
+            <label for="matricula" class="form-label">Matricula:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="matricula"
+              id="matricula"
+              onchange="fillEmail()"
+              th:field="*{matricula}"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono:</label>
+            <input
+              type="tel"
+              class="form-control"
+              name="telefono"
+              id="telefono"
+              th:field="*{telefono}"
+              required
+            />
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="carrera"
+          >
+            <option value="" selected>Selecciona tu carrera</option>
+            <option
+              th:each=" carrera : ${carreraList}"
+              th:value="${carrera.id}"
+              th:text="${carrera.nombre}"
+              th:field="*{carrera}"
+            ></option>
+          </select>
+        </div>
+        <hr />
+        <div th:object="${user}">
+          <div class="mb-3">
+            <label for="email1" class="form-label">Correo:</label>
+            <input
+              type="email"
+              class="form-control"
+              name="username"
+              th:field="*{username}"
+              id="email1"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              th:field="*{nombre}"
+              id="nombre"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="apellido1" class="form-label">Apellido paterno:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="apellido1"
+              id="apellido1"
+              th:field="*{apellido1}"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="apellido2" class="form-label">Apellido materno:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="apellido2"
+              id="apellido2"
+              th:field="*{apellido2}"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña:</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              id="password"
+              th:field="*{password}"
+              required
+            />
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="enabled"
+              th:field="*{enabled}"
+              id="estado"
+            />
+            <label class="form-check-label mb-3" for="estado">Estado</label>
+          </div>
+        </div>
+        <input
+          type="hidden"
+          class="form-control"
+          name="rols"
+          th:value="ROLE_USER"
+        />
+
+        <button type="submit" class="btn btn-primary mt-3">Registrar</button>
+      </form>
+    </div>
+    <script th:inline="javascript">
+      function fillEmail() {
+        var mat = document.getElementById("matricula").value.toLowerCase();
+        console.log(mat);
+        document.getElementById("email1").value = mat + "@utez.edu.mx";
+      }
+    </script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+  </body>
+</html>

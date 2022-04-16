@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title></title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/menu.css}" />
+<!--Toast-->
+<link rel="stylesheet" th:href="@{/css/toast.min.css}" />
+</head>
+
+<body>
+	<div class="container-fluid">
+
+
+		<div class="row">
+
+			<div class="col-9">
+				<div class="card mt-3">
+					<div class="card-body">
+						<h2 class="mb-3">Nuevo Documento</h2>
+						<form th:action="@{/documentos/guardar}" method="POST"
+							th:object="${documento}" enctype="multipart/form-data">
+								<input type="hidden" th:field="*{idDocumento}" />
+								<div class="form-group col">
+									<label>Nombre</label> <input
+										class="form-control form-control-lg" type="text"
+										th:field="*{nombre}" placeholder="">
+								</div>
+									<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-danger mb-3 mt-3"> 
+							
+							</div>
+	
+								
+								<div class="form-group col">
+									<label>Estado</label> <br>
+									<div class="form-control-lg form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{estado}" th:value="1"> <label
+											class="form-check-label">Activo</label>
+									</div>
+									<div class="form-control-lg form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{estado}" th:value="0"> <label
+											class="form-check-label">Inactivo</label>
+									</div>
+									
+								</div>
+								
+								<div th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="alert alert-danger mb-3 mt-3"> 
+							
+							</div>
+	
+								
+								
+				
+
+							<button type="submit"
+								class="btn   btn-lg btn-block mt-3" style="background-color:rgba(0,46,96,255);color:white;">
+								<ion-icon name="checkmark"></ion-icon>
+								&nbsp;Guardar
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!--Ionicons-->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+	<!--Toast-->
+	<script th:src="@{/js/toast.min.js}"></script>
+
+	<script th:if="${msg_success != null}">
+		new Toast({
+			message: '[[${msg_success}]]',
+			type: 'success'
+		});
+	</script>
+	<script th:if="${msg_error != null}">
+		new Toast({
+			message: '[[${msg_error}]]',
+			type: 'danger'
+		});
+	</script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

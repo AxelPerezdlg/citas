@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+    <title>Inicio de sesión</title>
+  </head>
+  <body>
+    <div class="container">
+      <div
+        class="d-flex justify-content-center align-items-center"
+        style="height: 100vh"
+      >
+        <div class="row">
+          <div class="col">
+            <div class="card" style="width: 18rem">
+              <img th:src="@{/img/logo.png}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Iniciar sesión</h5>
+                <form th:action="@{/login}" method="post">
+                  <div class="mb-3">
+                    <label for="email1" class="form-label">Correo:</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="username"
+                      id="email1"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      id="password"
+                      required
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Iniciar sesión
+                  </button>
+                  <a
+                    th:href="@{/usuarios/registroSolicitante}"
+                    style="margin-left: 15px"
+                    >Registrate</a
+                  >
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+  </body>
+</html>

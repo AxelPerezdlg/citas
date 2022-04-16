@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+    <title>Inicio de sesión</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lista de usuarios</h1>
+      <a th:href="@{/usuarios/registroUsuario}" class="btn btn-primary"
+        >Registrar nuevo usuario</a
+      >
+      <table class="table">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" th:each=" user, index : ${userList}">
+            <td
+              th:text="${index.index + 1}"
+              class="text-center align-middle"
+            ></td>
+            <td
+              th:text="${user.nombre + ' ' + user.apellido1 + ' ' + user.apellido2}"
+              class="text-center align-middle"
+            ></td>
+            <td
+              th:text="${user.username}"
+              class="text-center align-middle"
+            ></td>
+            <td>
+              <div th:each=" rol : ${user.rols}">
+                <span
+                  th:if="${rol.name eq 'ROLE_USER'}"
+                  th:text="Solicitante"
+                  class="badge bg-success"
+                ></span>
+                <span
+                  th:if="${rol.name eq 'ROLE_ADMIN'}"
+                  th:text="Administrador"
+                  class="badge bg-primary"
+                ></span>
+                <span
+                  th:if="${rol.name eq 'ROLE_EMPLEADO'}"
+                  th:text="Empleado"
+                  class="badge bg-danger"
+                ></span>
+              </div>
+            </td>
+            <td>
+              <span
+                th:text="${user.enabled} ? 'Activo' : 'Inactivo' "
+                th:class="${user.enabled} ? 'badge bg-success' : 'badge bg-danger'"
+              ></span>
+            </td>
+            <td class="text-center align-middle">
+              <a
+                th:href="@{/usuarios/detalleUsuario/{username}(username = ${user.username})}"
+                class="btn btn-primary"
+                >Detalle</a
+              >
+              <a
+                th:href="@{/usuarios/editarUsuario/{username}(username = ${user.username})}"
+                class="btn btn-warning"
+                >Editar</a
+              >
+              <a
+                th:href="@{/usuarios/eliminarUsuario/{username}(username = ${user.username})}"
+                class="btn btn-danger"
+                >Eliminar</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+  </body>
+</html>
