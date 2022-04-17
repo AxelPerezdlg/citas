@@ -96,4 +96,49 @@ function comparaHoras() {
     document.body.append(btn);
     btn.submit();
   }
+
 }
+
+function citas(){
+  var diaValidacion = $("#fecha").val();
+  var estado = $("#estadoInput").val();
+  var selectVentanilla = $("#selectVentanilla").val();
+  var selectServicio = $("#selectServicio").val();
+  var horas = $("#horasInput").val();
+  var dia = new Date($("#fecha").val() + " 00:00:00");
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if(diaValidacion === ""){
+    new Toast({
+      message: "Por favor de agregar un día para la cita",
+      type: "danger",
+    });
+  }else if(selectVentanilla === ""){
+    new Toast({
+      message: "Por favor de elegir una ventanilla para la cita",
+      type: "danger",
+    });
+  }else if(horas ===""){
+    new Toast({
+      message: "Por favor de elegir una hora para la cita",
+      type: "danger",
+    });
+  }else if(selectServicio == ""){
+    new Toast({
+      message: "Por favor elegir un servicio para la cita",
+      type: "danger",
+    });
+  }else if (dia.getTime() < today.getTime()) {
+    new Toast({
+      message: "Por favor poner una fecha actual o futura",
+      type: "danger",
+    });
+  }else{
+    var btn = document.getElementById("formRegistro");
+    document.body.append(btn);
+    btn.submit();
+  }
+}
+
+
