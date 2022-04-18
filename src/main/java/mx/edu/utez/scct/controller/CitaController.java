@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mx.edu.utez.scct.entity.Cita;
+import mx.edu.utez.scct.entity.DocumentoCita;
 import mx.edu.utez.scct.impl.CitaServiceImpl;
-
+import mx.edu.utez.scct.service.DocumentoCitaService;
 import mx.edu.utez.scct.service.ServicioService;
 import mx.edu.utez.scct.service.VentanillaService;
 
@@ -36,6 +37,9 @@ public class CitaController {
 
 	@Autowired
 	private ServicioService servicioService;
+	
+	@Autowired
+	private DocumentoCitaService documentoCitaService;
 	
 	@GetMapping(value="/crear")
 	public String crearCita(Cita cita, Model modelo,  Authentication authentication) {
@@ -60,6 +64,14 @@ public class CitaController {
 		Cita cita = citaService.mostrar(id);
 		if(cita != null) {
 			modelo.addAttribute("cita", cita);
+			
+            List<DocumentoCita> listaDocs = documentoCitaService.findByidCita(cita); 
+            if(listaDocs.isEmpty()){
+                modelo.addAttribute("bandera", false );
+            }else{
+                modelo.addAttribute("bandera", true );
+                modelo.addAttribute("listaDocs", listaDocs );
+            }
 			return "citas/mostrarCita";
 		}
 		redirectAttributes.addFlashAttribute("msg_error", "consulta fallida");

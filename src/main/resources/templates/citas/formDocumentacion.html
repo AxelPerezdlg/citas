@@ -50,9 +50,11 @@
 			</div>
 			<form id="formRegistro" th:action="@{/documentosCitas/guardar}" enctype="multipart/form-data" method="POST" th:object="${documentoCita}" class="container"> 
 				<input type="hidden" name="cita" th:value="${idCita}" />
-				<div class="form-group">
-					<label>Docuemnto</label>
-					<input accept=".pdf" name="archivo"  class="form-control" type="file" id="formFile">
+				<input type="hidden" name="documento" th:value="${idDocumento}" />
+				<label>Archivo</label>
+				<div  class="form-group">
+					<input name="archivo"  class="form-control" type="text" id="formFile">
+					<!--<input accept=".pdf" name="archivo"  class="form-control" type="text" id="formFile">-->
 				</div>
 				<button style="margin-top: 20px;" type="submit" class="btn btn-primary">
 					<ion-icon name="checkmark"></ion-icon>&nbsp;Guardar

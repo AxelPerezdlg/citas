@@ -52,16 +52,18 @@
       </a>
       <table class="table table-striped">
         <thead>
-          <th scope="col">Usuario a Atender</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Hora de la Cita</th>
-          <th scope="col">No. Ventanilla</th>
-          <th scope="col">Servicio</th>
-          <th scope="col">Estado</th>
-          <th colspan="3">Acciones</th>
+          <tr class="text-center">
+            <th scope="col">Usuario a Atender</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora de la Cita</th>
+            <th scope="col">No. Ventanilla</th>
+            <th scope="col">Servicio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
         </thead>
         <tbody>
-          <tr th:each="tmpCita: ${listaCitas}">
+          <tr class="text-center" th:each="tmpCita: ${listaCitas}">
             <td th:text="${tmpCita.user.nombre}"></td>
             <td th:text="${#dates.format(tmpCita.fecha, 'EE, d MMM yyyy')}"></td>
             <td th:text="${tmpCita.hora}"></td>
@@ -69,21 +71,12 @@
             <td th:text="${tmpCita.servicio.nombre}"></td>
             <td th:text="${tmpCita.estado}?'Atendida':'Pendiente'"></td>
             <td>
-              <a th:href="@{/documentosCitas/documentacion/{idCita} (idCita=${tmpCita.idCita})}" class="btn btn-success">
-                <ion-icon name="document"></ion-icon>
-              </a>
-            </td>
-            <td>
               <a th:href="@{/citas/mostrar/{id} (id=${tmpCita.idCita})}" class="btn btn-info">
                 <ion-icon name="eye"></ion-icon>
               </a>
-            </td>
-            <td>
               <a th:href="@{/citas/editar/{id} (id=${tmpCita.idCita})}" class="btn btn-warning">
                 <ion-icon name="create"></ion-icon>
               </a>
-            </td>
-            <td>
               <a th:href="@{/citas/eliminar/{id} (id=${tmpCita.idCita})}" class="btn btn-danger">
                 <ion-icon name="trash"></ion-icon>
               </a>

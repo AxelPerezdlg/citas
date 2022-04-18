@@ -1,10 +1,9 @@
 package mx.edu.utez.scct.controller;
 
-
-
 import java.io.IOException;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.hibernate.annotations.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,51 +23,37 @@ import mx.edu.utez.scct.entity.DocumentoCita;
 import mx.edu.utez.scct.service.CitaService;
 import mx.edu.utez.scct.service.DocumentoCitaService;
 
-
-
 @Controller
 @RequestMapping(value = "/documentosCitas")
 public class DocumentoCitaController {
 
     @Autowired
-	private CitaService citaService;
+    private CitaService citaService;
 
     @Autowired
-	private DocumentoCitaService documentoCitaService;
+    private DocumentoCitaService documentoCitaService;
 
-    @GetMapping("/documentacion/{idCita}")
-	public String crearCita(@PathVariable long idCita, DocumentoCita documentoCita, Model modelo, RedirectAttributes redirectAttributes) {
-		Cita citaObtener = citaService.mostrar(idCita);
-        
-        if(citaObtener != null) {
-			modelo.addAttribute("idCita", citaObtener.getIdCita());
-			return "citas/formDocumentacion";
-			
-		}
-		
-		redirectAttributes.addFlashAttribute("msg_error", "Registro no encontrado");
-		return "redirect:/citas/listar";
+    @GetMapping("/documentacion/{idCita}/{idDocumento}")
+    public String crearDocumento(@PathVariable long idCita, @PathVariable long idDocumento, Model modelo, RedirectAttributes redirectAttributes) {
 
-
-		
-	}
-
+        modelo.addAttribute("idCita", idCita);
+        modelo.addAttribute("idDocumento", idDocumento);
+        return "citas/formDocumentacion";
+    }
 
     @PostMapping("/guardar")
-	public String guardarDocumento(@RequestParam("cita") Long cita,@RequestParam("archivo") MultipartFile multipartFile, DocumentoCita documentoCita, Model modelo, RedirectAttributes redirectAttributes) throws IOException{
-		Cita citaObtener = citaService.mostrar(cita);
+    public String guardarDocumento(@RequestParam("cita") Long cita, @RequestParam("archivo") String archivo,
+            DocumentoCita documentoCita, Model modelo, RedirectAttributes redirectAttributes) throws IOException {
+        Cita citaObtener = citaService.mostrar(cita);
         documentoCita.setCita(citaObtener);
-        if(true){
-            
-            redirectAttributes.addFlashAttribute("msg_error", "Registro exitoso");
+        documentoCita.setArchivo(archivo);
+        boolean respuesta = documentoCitaService.guardar(documentoCita);
+        if (respuesta) {
+            redirectAttributes.addFlashAttribute("msg_success", "Registro exitoso");
             return "redirect:/citas/listar";
         }
         redirectAttributes.addFlashAttribute("msg_error", "Errro");
-		return "redirect:/documentosCitas/documentacion/"+cita;
-        
-	}
-
-
-    
+        return "redirect:/documentosCitas/documentacion/" + cita;
+    }
 
 }

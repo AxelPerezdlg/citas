@@ -21,21 +21,35 @@ public class DocumentoCita {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idDocumentoCita;
 	
-	@Lob
-	@Column(name = "documento", nullable = false)
-	private byte[] archivo;
+
+	@Column(name = "archivo", nullable = false)
+	private String archivo;
 	
 	@ManyToOne
-    @JoinColumn(name = "idCita", nullable = false)
+    @JoinColumn(name = "cita", nullable = false)
     private Cita cita;
 	 
-
+	@ManyToOne
+    @JoinColumn(name = "documento", nullable = false)
+    private Documento documento;
+	 
 	 
 	 
 	public DocumentoCita() {
 		super();
 	}
 	
+	
+	public Documento getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
+	}
+
+
+
 
 	public Long getIdDocumentoCita() {
 		return idDocumentoCita;
@@ -47,12 +61,12 @@ public class DocumentoCita {
 	}
 
 
-	public byte[] getArchivo() {
+	public String getArchivo() {
 		return archivo;
 	}
 
 
-	public void setArchivo(byte[] archivo) {
+	public void setArchivo(String archivo) {
 		this.archivo = archivo;
 	}
 

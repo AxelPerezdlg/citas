@@ -20,15 +20,33 @@
 					<div class="card-body">
 						<div class=row>
 							<div class="col-8">
+								<h2 class="mb-3">[[${cita.user.nombre}]]</h2>
 								<h2 class="mb-3">[[${#dates.format(cita.fecha, 'dd-MM-yyyy')}]]</h2>
 								<h2 class="mb-3">[[${cita.hora}]]</h2>
-								<h2 class="mb-3">[[${cita.horaFinal}]]</h2>
 								<h2 class="mb-3">[[${cita.estado}]]</h2>
-								<h2 class="mb-3">[[${cita.nVentanilla}]]</h2>
+								<h2 class="mb-3">[[${cita.ventanilla.numero}]]</h2>
+								<h2 class="mb-3">[[${cita.servicio.nombre}]]</h2>
 								
-									
+								<div class="row">
+									<div class="col col-md-6">
+										<h3>Documentos Requeridos</h3>
+										<div th:each=" documento : ${cita.servicio.documento}">
+											<p  th:text="${documento.nombre}"></p>
+											<a th:href="@{/documentosCitas/documentacion/{cita}/{doc} (cita=${cita.idCita}, doc=${documento.idDocumento})}">CARGAR</a>
+										</div>
+									</div>
+									<div class="col col-md-6">
+										<h3>Documentos Cargados</h3>
+										<div th:if="${bandera}">
+											<div th:each=" documentos : ${listaDocs}">
+												<p th:text="${documentos.documento.nombre}"></p>
+												<p th:text="${documentos.archivo}"></p>
+											</div>
+										</div>
+									</div>
+								</div>	
 								
-								<a href="/citas/listar" class="btn btn-primary btn-lg btn-block mt-3">
+								<a th:href="@{/citas/listar}" class="btn btn-primary btn-lg btn-block mt-3">
 									<ion-icon name="arrow-left"></ion-icon>&nbsp;Regresar
 								</a>
 							</div>
